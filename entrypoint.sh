@@ -50,7 +50,8 @@ for file in $(find ${SOURCE_DIR:-.} -name '*.html' | sed 's|^\./||'); do
               --profile s3-sync-action \
               --no-progress \
               --content-type 'text/html' \
-              ${ENDPOINT_APPEND} $*"
+              --acl public-read \
+              ${ENDPOINT_APPEND}"
 done
 
 # Clear out credentials after we're done.
