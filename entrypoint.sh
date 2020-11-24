@@ -44,9 +44,10 @@ sh -c "aws s3 sync ${SOURCE_DIR:-.} s3://${AWS_S3_BUCKET}/${DEST_DIR} \
               --no-progress \
               ${ENDPOINT_APPEND} $*"
 
+cd ${SOURCE_DIR:-.}
 
-for file in $(find ${SOURCE_DIR:-.} -name '*.html' | sed 's|^\./||'); do
-    sh -c "aws s3 cp ${file%} s3://${AWS_S3_BUCKET}/${DEST_DIR} \
+for file in $(find . -name '*.html' | sed 's|^\./||'); do
+    sh -c "aws s3 cp ${file%} s3://${AWS_S3_BUCKET}/${file%.*} \
               --profile s3-sync-action \
               --no-progress \
               --content-type 'text/html' \
